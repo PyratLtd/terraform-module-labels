@@ -1,0 +1,39 @@
+---
+
+name: terraform lint
+
+on:
+  push:
+    branches:
+      - '!main'
+  pull_request:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.PYRAT_GITHUB_TOKEN }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: terraform lint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: checkout actions
+        uses: actions/checkout@v3
+        with:
+          repository: PyratLtd/actions
+          path: .github/pyrat-actions
+          token: ${{ secrets.PYRAT_GITHUB_TOKEN }}
+
+      - name: terraform fmt
+        uses: ./.github/pyrat-actions/terraform-fmt
+
+      - name: terraform validate
+        uses: ./.github/pyrat-actions/terraform-validate
+        with:
+          workspace: global
+          path: ./test
+
+      - name: terraform security
+        uses: ./.github/pyrat-actions/terraform-security
