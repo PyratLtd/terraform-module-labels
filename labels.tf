@@ -1,6 +1,6 @@
 # Raw labels to correctly name state container
 module "labels" {
-  source = "git@github.com:cloudposse/terraform-null-label.git?ref=0.25.0"
+  source = "github.com/cloudposse/terraform-null-label.git?ref=0.25.0"
 
   environment = try(coalesce(var.environment, local.context_input.environment), local.empty_context.environment)
   stage       = try(coalesce(var.stage, local.context_input.stage), local.empty_context.stage)
