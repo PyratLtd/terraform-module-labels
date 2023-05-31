@@ -1,0 +1,30 @@
+---
+
+name: terraform plan
+
+on:
+  pull_request:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.PYRAT_GITHUB_TOKEN }}
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    name: terraform plan
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: checkout actions
+        uses: actions/checkout@v3
+        with:
+          repository: PyratLtd/actions
+          path: .github/pyrat-actions
+          token: ${{ secrets.PYRAT_GITHUB_TOKEN }}
+
+      - name: terraform plan
+        uses: ./.github/pyrat-actions/terraform-plan
+        with:
+          path: ./test
