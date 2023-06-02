@@ -14,7 +14,7 @@ output "context" {
 # }
 
 output "id" {
-  value       = local.output.id
+  value       = (local.output.stage == local.output.environment) ? replace(local.output.id, format("%s-%s", local.output.environment, local.output.stage), local.output.environment) : local.output.id
   description = "ID string"
 }
 
