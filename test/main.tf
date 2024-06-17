@@ -16,9 +16,10 @@ module "labels" {
 }
 
 module "sub_labels" {
-  source  = "../."
-  name    = "cache"
-  context = module.labels.context
+  source     = "../."
+  name       = "cache"
+  attributes = ["1"]
+  context    = module.labels.context
 }
 
 output "labels" {
