@@ -5,6 +5,7 @@ module "labels" {
   environment = try(coalesce(var.environment, local.context_input.environment), local.empty_context.environment)
   stage       = try(coalesce(var.stage, local.context_input.stage), local.empty_context.stage)
   name        = try(coalesce(local.name, local.context_input.name), local.empty_context.name)
+  attributes  = try(coalesce(var.attributes, local.context_input.attributes), local.empty_context.attributes)
   namespace   = try(coalesce(local.location, local.namespace), local.empty_context.namespace)
   delimiter   = try(coalesce(var.delimiter, local.context_input.delimiter), local.empty_context.delimeter)
   tenant      = try(coalesce(var.tenant, local.context_input.tenant), local.empty_context.tenant)

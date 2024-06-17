@@ -34,7 +34,7 @@ locals {
   }
 
   context_input = {
-    for k, v in local.context : (replace(k, k, lookup(local.context_rename_input, k, k))) => v
+    for k, v in local.context : (try(local.context_rename_input[lower(k)], k)) => v
   }
 
   tags_alter_values = {
@@ -43,7 +43,7 @@ locals {
   }
 
   output_tags_renamed = merge({
-    for k, v in module.labels.tags : (title(lookup(local.context_rename_output, lower(k), k))) => v
+    for k, v in module.labels.tags : (title(try(local.context_rename_output[lower(k)], k))) => v
   }, local.tags_alter_values)
 
   output_fields = {
@@ -57,14 +57,14 @@ locals {
 
   context_output = merge(
     {
-      for k, v in module.labels.context : (lookup(local.context_rename_output, k, k)) => v
+      for k, v in module.labels.context : (try(local.context_rename_output[k], k)) => v
     },
     local.output_fields
   )
 
   output = merge(
     {
-      for k, v in module.labels : (lookup(local.context_rename_output, k, k)) => v
+      for k, v in module.labels : (try(local.context_rename_output[k], k)) => v
     },
     { context = local.context_output },
     local.output_fields
@@ -148,12 +148,12 @@ locals {
     northamerica-northeast2 = "can2"
   }
 
-  name_attributes = [
+  name_attributes = join(var.delimiter, [
     for k in [local.organisation, var.name] : k if k != null
-  ]
+  ])
 
   organisation = try(coalesce(var.organisation, local.context_input.organisation), null)
-  name         = local.organisation == null ? coalesce(var.name, local.context_input.name) : join(var.delimiter, local.name_attributes)
-  location     = try(lookup(local.location_map, var.location, var.location), null)
-  namespace    = try(lookup(local.location_map, local.context_input.location, local.context_input.location), local.empty_context.namespace)
+  name         = try(coalesce(local.name_attributes, local.context_input.name), local.empty_context.name)
+  location     = try(try(local.location_map[var.location], var.location), null)
+  namespace    = try(try(local.location_map[local.context_input.location], local.context_input.location), local.empty_context.namespace)
 }

@@ -49,6 +49,12 @@ variable "name" {
   nullable    = true
 }
 
+variable "attributes" {
+  description = "ID Element, additional attributes (eg. `1`, `cluster`)"
+  type        = list(string)
+  default     = []
+}
+
 variable "delimiter" {
   description = "Delimiter to be used between ID elements."
   type        = string
@@ -64,5 +70,5 @@ variable "tags" {
 variable "label_order" {
   description = "The order in which the labels (ID elements) appear in the `id`."
   type        = list(string)
-  default     = ["namespace", "environment", "stage", "name"]
+  default     = ["namespace", "environment", "stage", "name", "attributes"]
 }
