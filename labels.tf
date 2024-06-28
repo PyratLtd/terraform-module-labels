@@ -11,5 +11,5 @@ module "labels" {
   tenant      = try(coalesce(var.tenant, local.context_input.tenant), local.empty_context.tenant)
   context     = local.context_input
   label_order = try(coalesce(var.label_order, local.context_input.label_order), local.empty_context.label_order)
-  tags        = try(coalesce(var.tags, local.context_input.tags), local.empty_context.tags)
+  tags        = try(coalesce(local.tags, local.context_input.tags), local.empty_context.tags)
 }
