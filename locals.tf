@@ -70,6 +70,9 @@ locals {
     local.output_fields
   )
 
+  tags = merge(var.tags, { for k, v in data.external.git_remote_url : k => basename(v.result.repo) })
+  # tags = merge(var.tags, var.inject_plan_directory_tag ? { terraform-plan = basename(abspath(path.root)) } : {})
+
   location_map = {
     # Azure Europe
     uksouth            = "uks"

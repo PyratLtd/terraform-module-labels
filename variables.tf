@@ -72,3 +72,9 @@ variable "label_order" {
   type        = list(string)
   default     = ["namespace", "environment", "stage", "name", "attributes"]
 }
+
+variable "inject_plan_directory_tag" {
+  description = "Inject a tag that provides the directory name from which the plan is running"
+  type        = bool
+  default     = true
+}
