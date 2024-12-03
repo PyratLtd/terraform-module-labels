@@ -70,42 +70,42 @@ locals {
     local.output_fields
   )
 
-  tags = merge(var.tags, { for k, v in data.external.git_remote_url : k => basename(v.result.repo) })
+  tags = merge(var.tags, local.script_tags_result)
   # tags = merge(var.tags, var.inject_plan_directory_tag ? { terraform-plan = basename(abspath(path.root)) } : {})
 
   location_map = {
     # Azure Europe
-    uksouth            = "uks"
-    ukwest             = "ukw"
-    northeurope        = "eun"
-    westeurope         = "euw"
-    austriaeast        = "ate"
-    belgiumcentral     = "bec"
-    denmarkeast        = "dke"
-    finlandcentral     = "fic"
-    francecentral      = "frc"
-    germanwestcentral  = "dew"
-    greececentral      = "grc"
-    italynorth         = "itn"
-    norwayeast         = "noe"
-    polandcentral      = "plc"
-    spaincentral       = "esc"
-    swedencentral      = "sec"
-    switzerlandcentral = "chc"
+    uksouth            = "ukso"
+    ukwest             = "ukwe"
+    northeurope        = "euno"
+    westeurope         = "euwe"
+    austriaeast        = "auea"
+    belgiumcentral     = "bece"
+    denmarkeast        = "dkea"
+    finlandcentral     = "fice"
+    francecentral      = "frce"
+    germanwestcentral  = "dewe"
+    greececentral      = "grce"
+    italynorth         = "itno"
+    norwayeast         = "noea"
+    polandcentral      = "plce"
+    spaincentral       = "esce"
+    swedencentral      = "sece"
+    switzerlandcentral = "chce"
 
     # Azure North America
-    centralus      = "usc"
-    eastus         = "use"
-    eastus2        = "ue2"
-    eastus3        = "ue3"
-    northcentralus = "unc"
-    southcentralus = "usx"
-    westcentralus  = "uwc"
-    westus         = "usw"
-    westus2        = "uw2"
-    westus3        = "uw3"
-    canadacentral  = "cac"
-    canadaeast     = "cae"
+    centralus      = "usce"
+    eastus         = "usea"
+    eastus2        = "use2"
+    eastus3        = "use3"
+    northcentralus = "usnc"
+    southcentralus = "ussx"
+    westcentralus  = "uswc"
+    westus         = "uswe"
+    westus2        = "usw2"
+    westus3        = "usw3"
+    canadacentral  = "cace"
+    canadaeast     = "caea"
 
     # AWS Europe
     eu-central-1 = "euc1"
