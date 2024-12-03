@@ -73,8 +73,8 @@ variable "label_order" {
   default     = ["namespace", "environment", "stage", "name", "attributes"]
 }
 
-variable "inject_plan_directory_tag" {
-  description = "Inject a tag that provides the directory name from which the plan is running"
+variable "use_tag_scripts" {
+  description = "Inject tags generated from scripts"
   type        = bool
   default     = true
 }
